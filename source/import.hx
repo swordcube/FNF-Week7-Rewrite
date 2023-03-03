@@ -10,6 +10,8 @@ import sys.FileSystem;
 #end
 
 import backend.*;
+import backend.utilities.*;
 
+using backend.utilities.CoolUtil;
 using StringTools;
 #end

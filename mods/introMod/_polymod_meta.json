@@ -1,0 +1,12 @@
+{
+	"title":"Dragon",
+	"description":"Replaces Bees with Dragons",
+	"contributors": [
+		{
+			"name": "swordcube",
+			"role": "Creator"
+		}
+	],
+	"api_version":"0.1.0",
+	"mod_version":"1.0.0"
+}

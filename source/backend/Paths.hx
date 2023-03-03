@@ -1,5 +1,7 @@
 package backend;
 
+import flixel.graphics.frames.FlxAtlasFrames;
+
 class Paths {
     public static final imageExtensions:Array<String> = [
         "png",
@@ -32,11 +34,31 @@ class Paths {
         return gottenPath;
     }
 
+    public static inline function getSparrowAtlas(path:String, ?library:Null<String>) {
+        return FlxAtlasFrames.fromSparrow(image(path), xml('images/$path'));
+    }
+
+    public static inline function getPackerAtlas(path:String, ?library:Null<String>) {
+        return FlxAtlasFrames.fromSpriteSheetPacker(image(path), txt('images/$path'));
+    }
+
     public static inline function music(path:String, ?library:Null<String>) {
         return getPath('music/$path.ogg', library);
     }
 
     public static inline function sound(path:String, ?library:Null<String>) {
         return getPath('sounds/$path.ogg', library);
+    }
+
+    public static inline function txt(path:String, ?library:Null<String>) {
+        return getPath('$path.txt', library);
+    }
+
+    public static inline function xml(path:String, ?library:Null<String>) {
+        return getPath('$path.xml', library);
+    }
+
+    public static inline function json(path:String, ?library:Null<String>) {
+        return getPath('$path.json', library);
     }
 }

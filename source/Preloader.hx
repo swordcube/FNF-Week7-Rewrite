@@ -1,5 +1,7 @@
 package;
 
+import backend.utilities.CoolUtil;
+import polymod.Polymod;
 import flixel.util.FlxColor;
 import flixel.graphics.FlxGraphic;
 #if (target.threaded)
@@ -8,6 +10,9 @@ import sys.thread.Thread;
 import flixel.ui.FlxBar;
 import flixel.FlxState;
 
+/**
+ * The class that initializes the game and preloads assets.
+ */
 class Preloader extends FlxState {
     public var spinner:FlxSprite;
     public var logo:FlxSprite;
@@ -29,8 +34,7 @@ class Preloader extends FlxState {
             FlxG.save.flush();
         }
 
-        Main.fpsCounter.visible = false;
-        FlxSprite.defaultAntialiasing = true;
+        Preloader.initGame();
 
         add(logo = new FlxSprite().loadGraphic(Paths.image("preloaderArt")));
         logo.scale.set(0.4, 0.4);
@@ -73,6 +77,23 @@ class Preloader extends FlxState {
         trace("PRELOADING WITHOUT A THREAD!");
         preloadAssets(shitToLoad);
         #end
+    }
+
+    public static function initGame() {
+        FlxG.fixedTimestep = false;
+        Main.fpsCounter.visible = false;
+        FlxSprite.defaultAntialiasing = true;
+
+        Polymod.init({
+            modRoot: "mods",
+            dirs: ["introMod"],
+            framework: FLIXEL,
+            customFilesystem: polymod.fs.ZipFileSystem
+        });
+
+        FlxG.signals.preStateCreate.add((state:FlxState) -> {
+            CoolUtil.clearCache();
+        });
     }
 
     public function preloadAssets(paths:Array<String>) {
