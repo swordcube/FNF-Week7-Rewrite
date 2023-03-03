@@ -1,12 +1,12 @@
 {
-	"title":"Dragon",
-	"description":"Replaces Bees with Dragons",
+	"title": "Intro Mod",
+	"description": "Modifies the title screen as a simple test for modding.",
 	"contributors": [
 		{
 			"name": "swordcube",
 			"role": "Creator"
 		}
 	],
-	"api_version":"0.1.0",
-	"mod_version":"1.0.0"
+	"api_version": "0.1.0",
+	"mod_version": "1.0.0"
 }
