@@ -1,0 +1,69 @@
+{
+    "dependencies": [
+        {
+            "name": "hxcpp-debug-server",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "flixel",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "flixel-addons",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "flixel-ui",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "format",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "polymod",
+            "type": "git",
+            "dir": "polymod",
+            "ref": "master",
+            "url": "https://github.com/swordcube/scriptless-polymod"
+        },
+        {
+            "name": "hscript-improved",
+            "type": "git",
+            "dir": "hscript-improved",
+            "ref": "master",
+            "url": "https://www.github.com/YoshiCrafter29/hscript-improved"
+        },
+        {
+            "name": "hxCodec",
+            "type": "git",
+            "dir": "hxCodec",
+            "ref": "master",
+            "url": "https://github.com/swordcube/hxCodec-2.5.1-LINUX"
+        },
+        {
+            "name": "lime",
+            "type": "haxelib",
+            "version": null
+        },
+        {
+            "name": "discord_rpc",
+            "type": "git",
+            "dir": "discord_rpc",
+            "ref": "master",
+            "url": "https://github.com/Aidan63/linc_discord-rpc"
+        },
+        {
+            "name": "openfl",
+            "type": "git",
+            "dir": "openfl",
+            "ref": "master",
+            "url": "https://github.com/openfl/openfl"
+        }
+    ]
+}
