@@ -15,6 +15,10 @@ class Main extends Sprite {
 	public static var engineNightlyTag:String = "alpha";
 
 	public static var fpsCounter:FPS;
+
+	public static inline function framerateAdjust(input:Float) {
+		return FlxG.elapsed * 60 * input;
+	}
 	
 	public function new() {
 		super();

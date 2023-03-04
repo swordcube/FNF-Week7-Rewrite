@@ -42,7 +42,6 @@
 	<assets path="assets/songs" library="nopreload" />
 	<assets path="assets/music" library="nopreload" />
 	<assets path="assets/sounds" library="nopreload" />
-	<assets path="assets/data" library="nopreload" />
 
 	<assets path="mods" />
 
@@ -51,6 +50,7 @@
 	<haxelib name="hxcpp-debug-server" if="debug cpp" />
 
 	<haxelib name="flixel-leather" />
+	<haxelib name="hscript-improved" />
 	<haxelib name="polymod" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->

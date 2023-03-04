@@ -1,6 +1,8 @@
 #if !macro
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
+
 import openfl.utils.Assets as OpenFLAssets;
 import lime.utils.Assets as LimeAssets;
 
@@ -11,6 +13,7 @@ import sys.FileSystem;
 
 import backend.*;
 import backend.utilities.*;
+import music.*;
 
 using backend.utilities.CoolUtil;
 using StringTools;

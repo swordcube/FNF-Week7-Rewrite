@@ -1,6 +1,7 @@
 package states;
 
 import flixel.FlxState;
+import objects.fonts.Alphabet;
 
 class TitleState extends FlxState {
 	public var logo:FlxSprite;
@@ -10,7 +11,7 @@ class TitleState extends FlxState {
 	override function create() {
 		super.create();
 
-		FlxG.sound.playMusic(Paths.music("preload/freakyMenu"));
+		CoolUtil.playMusic(Paths.music("preload/freakyMenu"));
 
 		add(logo = new FlxSprite(-150, -100));
 		logo.frames = Paths.getSparrowAtlas("titlescreen/logoBumpin");
@@ -28,9 +29,16 @@ class TitleState extends FlxState {
 		titleEnter.animation.addByPrefix("idle", "Press Enter to Begin", 24);
 		titleEnter.animation.addByPrefix("press", "ENTER PRESSED", 24);
 		titleEnter.animation.play("idle");
+
+		add(new Alphabet(10, 10, Bold, "yo nice balls you got there\ncan i crush them"));
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+		
+		if(FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+		else
+			Conductor.songPosition += elapsed * 1000;
 	}
 }

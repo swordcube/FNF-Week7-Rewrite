@@ -5,10 +5,10 @@ import openfl.display.BitmapData;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 
 class CacheManager {
-    public static var preloadedAssets:Array<CacheAsset> = [];
+    public static var preloadedAssets:Map<String, CacheAsset> = [];
 
-    public static inline function preloadAsset(asset:Dynamic, ?callback:Void->Void) {
-        preloadedAssets.push(asset);
+    public static inline function preloadAsset(path:String, asset:Dynamic, ?callback:Void->Void) {
+        preloadedAssets.set(path, new CacheAsset(asset));
         if(callback != null) callback();
     }
 }

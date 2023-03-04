@@ -1,5 +1,10 @@
 package;
 
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
+import flixel.addons.transition.TransitionData;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
+import haxe.io.Path;
 import backend.utilities.CoolUtil;
 import polymod.Polymod;
 import flixel.util.FlxColor;
@@ -26,6 +31,8 @@ class Preloader extends FlxState {
     override function create() {
         super.create();
 
+        FlxG.save.bind("preferences", CoolUtil.getSavePath());
+
         // Automatically set the volume to 0.3 to not blast your ears immediately
         // when initially creating save data
         // I'm nice like that :3
@@ -43,10 +50,12 @@ class Preloader extends FlxState {
         logo.y -= 50;
         
         var foldersToCheck:Array<String> = [
-            // Images (Do not use any libraries on them because they don't work for some reason)
+            // Images
             Paths.getPath("images/characters"),
             Paths.getPath("images/gameplay"),
             Paths.getPath("images/notes"),
+            Paths.getPath("images/gui/preload"),
+            Paths.getPath("images/titlescreen"),
 
             // Music
             Paths.getPath("music/preload"),
@@ -87,6 +96,13 @@ class Preloader extends FlxState {
         Polymod.init({
             modRoot: "mods",
             dirs: ["introMod"],
+            errorCallback: (error:PolymodError) -> {
+                switch(error.severity) {
+                    case ERROR:     Logs.trace(error.message, ERROR);
+                    case WARNING:   Logs.trace(error.message, WARNING);
+                    default: // nah
+                }
+            },
             framework: FLIXEL,
             customFilesystem: polymod.fs.ZipFileSystem
         });
@@ -94,24 +110,42 @@ class Preloader extends FlxState {
         FlxG.signals.preStateCreate.add((state:FlxState) -> {
             CoolUtil.clearCache();
         });
+
+        var diamond = FlxGraphic.fromClass(GraphicTransTileDiamond);
+        diamond.persist = true;
+        diamond.destroyOnNoUse = false;
+
+        var transitionTileData:TransitionTileData = {asset: diamond, width: 32, height: 32};
+        var transitionRect:FlxRect = FlxRect.get(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4);
+
+        FlxTransitionableState.defaultTransIn = new TransitionData(FADE, 0xFF000000, 0.45, FlxPoint.get(0, -1), transitionTileData, transitionRect);
+        FlxTransitionableState.defaultTransOut = new TransitionData(FADE, 0xFF000000, 0.45, FlxPoint.get(0, 1), transitionTileData, transitionRect);
     }
 
     public function preloadAssets(paths:Array<String>) {
         for(path in paths) {
             if(OpenFLAssets.exists(path, IMAGE)) {
-                var graphic = FlxGraphic.fromBitmapData(OpenFLAssets.getBitmapData(path), true, path, false);
+                var graphic = FlxGraphic.fromBitmapData(OpenFLAssets.getBitmapData(path), false, path, false);
                 graphic.persist = true;
                 graphic.destroyOnNoUse = false;
-                CacheManager.preloadAsset(graphic, updateCurrentlyLoaded);
+                CacheManager.preloadAsset(path, graphic, updateCurrentlyLoaded);
+
+                var xmlPath:String = path.substr(0, path.length - (Path.extension(path).length + 1)) + ".xml";
+                if(OpenFLAssets.exists(xmlPath, TEXT))
+                    CacheManager.preloadAsset(xmlPath, OpenFLAssets.getText(xmlPath));
+
+                var txtPath:String = path.substr(0, path.length - (Path.extension(path).length + 1)) + ".txt";
+                if(OpenFLAssets.exists(txtPath, TEXT))
+                    CacheManager.preloadAsset(txtPath, OpenFLAssets.getText(txtPath));
             }
             else if(OpenFLAssets.exists(path, MUSIC))
-                CacheManager.preloadAsset(OpenFLAssets.getMusic(path), updateCurrentlyLoaded);
+                CacheManager.preloadAsset(path, OpenFLAssets.getMusic(path), updateCurrentlyLoaded);
 
             else if(OpenFLAssets.exists(path, SOUND))
-                CacheManager.preloadAsset(OpenFLAssets.getSound(path), updateCurrentlyLoaded);
+                CacheManager.preloadAsset(path, OpenFLAssets.getSound(path), updateCurrentlyLoaded);
 
             else if(OpenFLAssets.exists(path, TEXT))
-                CacheManager.preloadAsset(OpenFLAssets.getText(path), updateCurrentlyLoaded);
+                CacheManager.preloadAsset(path, OpenFLAssets.getText(path), updateCurrentlyLoaded);
 
             else continue;
         }

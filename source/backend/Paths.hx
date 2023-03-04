@@ -1,5 +1,7 @@
 package backend;
 
+import flixel.system.FlxAssets.FlxSoundAsset;
+import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 class Paths {
@@ -22,7 +24,7 @@ class Paths {
         return '${library}assets/$path';
     }
 
-    public static inline function image(path:String, ?library:Null<String>) {
+    public static inline function image(path:String, ?library:Null<String>):FlxGraphicAsset {
         var gottenPath:String = getPath('images/$path.png', library);
         for(extension in imageExtensions) {
             var path:String = getPath('images/$path.$extension', library);
@@ -31,6 +33,10 @@ class Paths {
                 break;
             }
         }
+
+        var cached:FlxGraphicAsset = (CacheManager.preloadedAssets.get(gottenPath) != null) ? CacheManager.preloadedAssets.get(gottenPath).value : null;
+        if(cached != null) return cached;
+        
         return gottenPath;
     }
 
@@ -42,23 +48,48 @@ class Paths {
         return FlxAtlasFrames.fromSpriteSheetPacker(image(path), txt('images/$path'));
     }
 
-    public static inline function music(path:String, ?library:Null<String>) {
-        return getPath('music/$path.ogg', library);
+    public static inline function music(path:String, ?library:Null<String>):FlxSoundAsset {
+        var path:String = getPath('music/$path.ogg', library);
+
+        var cached:FlxSoundAsset = (CacheManager.preloadedAssets.get(path) != null) ? CacheManager.preloadedAssets.get(path).value : null;
+        if(cached != null) return cached;
+
+        return path;
     }
 
-    public static inline function sound(path:String, ?library:Null<String>) {
-        return getPath('sounds/$path.ogg', library);
+    public static inline function sound(path:String, ?library:Null<String>):FlxSoundAsset {
+        var path:String = getPath('sounds/$path.ogg', library);
+
+        var cached:FlxSoundAsset = (CacheManager.preloadedAssets.get(path) != null) ? CacheManager.preloadedAssets.get(path).value : null;
+        if(cached != null) return cached;
+
+        return path;
     }
 
     public static inline function txt(path:String, ?library:Null<String>) {
-        return getPath('$path.txt', library);
+        var path:String = getPath('$path.txt', library);
+
+        var cached:String = (CacheManager.preloadedAssets.get(path) != null) ? CacheManager.preloadedAssets.get(path).value : null;
+        if(cached != null) return cached;
+        
+        return path;
     }
 
     public static inline function xml(path:String, ?library:Null<String>) {
-        return getPath('$path.xml', library);
+        var path:String = getPath('$path.xml', library);
+
+        var cached:String = (CacheManager.preloadedAssets.get(path) != null) ? CacheManager.preloadedAssets.get(path).value : null;
+        if(cached != null) return cached;
+
+        return path;
     }
 
     public static inline function json(path:String, ?library:Null<String>) {
-        return getPath('$path.json', library);
+        var path:String = getPath('$path.json', library);
+
+        var cached:String = (CacheManager.preloadedAssets.get(path) != null) ? CacheManager.preloadedAssets.get(path).value : null;
+        if(cached != null) return cached;
+
+        return path;
     }
 }
