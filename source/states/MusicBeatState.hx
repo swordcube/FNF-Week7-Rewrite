@@ -1,10 +1,17 @@
 package states;
 
+import flixel.addons.ui.FlxUIState;
 import backend.interfaces.IMusicHandler;
-import flixel.FlxState;
 
-class MusicBeatState extends FlxState implements IMusicHandler {
+class MusicBeatState extends FlxUIState implements IMusicHandler {
     override function create() {
+        Conductor.reset();
+        Conductor.onBeatHit.add(beatHit);
+        Conductor.onStepHit.add(stepHit);
+
+        transIn = FlxTransitionableState.defaultTransIn;
+        transOut = FlxTransitionableState.defaultTransOut;
+
 		super.create();
 	}
 
@@ -23,13 +30,6 @@ class MusicBeatState extends FlxState implements IMusicHandler {
         for(e in members) {
             if(e != null && e is IMusicHandler)
                 cast(e, IMusicHandler).stepHit(a);
-        }
-    }
-
-	public function sectionHit(a:Int) {
-        for(e in members) {
-            if(e != null && e is IMusicHandler)
-                cast(e, IMusicHandler).sectionHit(a);
         }
     }
 }

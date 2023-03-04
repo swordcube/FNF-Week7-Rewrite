@@ -31,16 +31,6 @@ class Preloader extends FlxState {
     override function create() {
         super.create();
 
-        FlxG.save.bind("preferences", CoolUtil.getSavePath());
-
-        // Automatically set the volume to 0.3 to not blast your ears immediately
-        // when initially creating save data
-        // I'm nice like that :3
-        if(FlxG.save.data.volume == null) {
-            FlxG.save.data.volume = 0.3;
-            FlxG.save.flush();
-        }
-
         Preloader.initGame();
 
         add(logo = new FlxSprite().loadGraphic(Paths.image("preloaderArt")));
@@ -92,6 +82,17 @@ class Preloader extends FlxState {
         FlxG.fixedTimestep = false;
         Main.fpsCounter.visible = false;
         FlxSprite.defaultAntialiasing = true;
+
+        FlxG.save.bind("preferences", CoolUtil.getSavePath());
+
+        // Automatically set the volume to 0.3 to not blast your ears immediately
+        // when initially creating save data
+        // I'm nice like that :3
+        if(FlxG.save.data.volume == null) {
+            FlxG.save.data.volume = 0.3;
+            FlxG.save.flush();
+        }
+        Conductor.init();
 
         Polymod.init({
             modRoot: "mods",

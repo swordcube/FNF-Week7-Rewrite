@@ -29,8 +29,6 @@ class TitleState extends FlxState {
 		titleEnter.animation.addByPrefix("idle", "Press Enter to Begin", 24);
 		titleEnter.animation.addByPrefix("press", "ENTER PRESSED", 24);
 		titleEnter.animation.play("idle");
-
-		add(new Alphabet(10, 10, Bold, "yo nice balls you got there\ncan i crush them"));
 	}
 
 	override function update(elapsed:Float) {
@@ -40,5 +38,8 @@ class TitleState extends FlxState {
 			Conductor.songPosition = FlxG.sound.music.time;
 		else
 			Conductor.songPosition += elapsed * 1000;
+
+		if(FlxG.keys.justPressed.ENTER)
+			FlxG.switchState(new PlayState());
 	}
 }

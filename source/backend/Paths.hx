@@ -92,4 +92,20 @@ class Paths {
 
         return path;
     }
+
+    public static inline function songJson(song:String, ?difficulty:String = "normal", ?library:Null<String>) {
+        var gottenPath:String = getPath('songs/$song/$song-$difficulty');
+        var pathsToCheck:Array<String> = [
+            getPath('songs/$song/$difficulty'),
+            getPath('data/$song/$difficulty'),
+            getPath('data/$song/$song-$difficulty'),
+        ];
+        for(path in pathsToCheck) {
+            if(Paths.exists(path)) {
+                gottenPath = path;
+                break;
+            }
+        }
+        return gottenPath;
+    }
 }

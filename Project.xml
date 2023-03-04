@@ -39,6 +39,7 @@
 	<source path="source" />
 	
 	<assets path="assets" />
+	<assets path="assets/images" library="nopreload" />
 	<assets path="assets/songs" library="nopreload" />
 	<assets path="assets/music" library="nopreload" />
 	<assets path="assets/sounds" library="nopreload" />
