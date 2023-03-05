@@ -1,9 +1,8 @@
 package states;
 
-import flixel.FlxState;
 import objects.fonts.Alphabet;
 
-class TitleState extends FlxState {
+class TitleState extends MusicBeatState {
 	public var logo:FlxSprite;
 	public var gfDance:FlxSprite;
 	public var titleEnter:FlxSprite;

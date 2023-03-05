@@ -5,7 +5,6 @@ import backend.interfaces.IMusicHandler;
 
 class MusicBeatState extends FlxUIState implements IMusicHandler {
     override function create() {
-        Conductor.reset();
         Conductor.onBeatHit.add(beatHit);
         Conductor.onStepHit.add(stepHit);
 
@@ -31,5 +30,11 @@ class MusicBeatState extends FlxUIState implements IMusicHandler {
             if(e != null && e is IMusicHandler)
                 cast(e, IMusicHandler).stepHit(a);
         }
+    }
+
+    override function destroy() {
+        Conductor.onBeatHit.remove(beatHit);
+        Conductor.onStepHit.remove(stepHit);
+        super.destroy();
     }
 }

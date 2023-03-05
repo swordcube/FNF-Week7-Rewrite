@@ -1,5 +1,6 @@
 package backend.utilities;
 
+import flixel.system.FlxAssets.FlxSoundAsset;
 import flixel.input.keyboard.FlxKey;
 import flixel.animation.FlxAnimation;
 import flixel.util.FlxSave;
@@ -151,8 +152,8 @@ class CoolUtil {
      * @param fadeInVolume (Optional) The volume the music should fade in to. If not specified, the volume will remain at it's initial value.
      * @param fadeInDuration (Optional) How long the music should fade in for. Defaults to 1 second if not specified.;
      */
-	 public inline static function playMusic(path:String, ?volume:Float = 1.0, ?looped:Bool = true, ?iniData:Ini, ?fadeInVolume:Null<Float>, ?fadeInDuration:Float = 1.0) {
-		if(!Paths.exists(path)) return;
+	 public inline static function playMusic(path:FlxSoundAsset, ?volume:Float = 1.0, ?looped:Bool = true, ?iniData:Ini, ?fadeInVolume:Null<Float>, ?fadeInDuration:Float = 1.0) {
+		if(path is String && !Paths.exists(path)) return;
 
         FlxG.sound.playMusic(path, volume, looped);
         if(fadeInVolume != null)

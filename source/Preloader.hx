@@ -109,6 +109,7 @@ class Preloader extends FlxState {
         });
 
         FlxG.signals.preStateCreate.add((state:FlxState) -> {
+            Conductor.reset();
             CoolUtil.clearCache();
         });
 
@@ -139,9 +140,6 @@ class Preloader extends FlxState {
                 if(OpenFLAssets.exists(txtPath, TEXT))
                     CacheManager.preloadAsset(txtPath, OpenFLAssets.getText(txtPath));
             }
-            else if(OpenFLAssets.exists(path, MUSIC))
-                CacheManager.preloadAsset(path, OpenFLAssets.getMusic(path), updateCurrentlyLoaded);
-
             else if(OpenFLAssets.exists(path, SOUND))
                 CacheManager.preloadAsset(path, OpenFLAssets.getSound(path), updateCurrentlyLoaded);
 

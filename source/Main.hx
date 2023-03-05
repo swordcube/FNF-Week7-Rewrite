@@ -23,7 +23,7 @@ class Main extends Sprite {
 	public function new() {
 		super();
 		fpsCounter = new FPS(10, 3, 0xFFFFFFFF);
-		addChild(new FlxGame(1280, 720, states.PlayState, 240, 240, true));
+		addChild(new FlxGame(1280, 720, Preloader, 240, 240, true));
 		addChild(fpsCounter);
 	}
 }

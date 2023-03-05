@@ -94,12 +94,15 @@ class Paths {
     }
 
     public static inline function songJson(song:String, ?difficulty:String = "normal", ?library:Null<String>) {
-        var gottenPath:String = getPath('songs/$song/$song-$difficulty');
+        var gottenPath:String = getPath('songs/$song/$song-$difficulty.json');
         var pathsToCheck:Array<String> = [
-            getPath('songs/$song/$difficulty'),
-            getPath('data/$song/$difficulty'),
-            getPath('data/$song/$song-$difficulty'),
+            getPath('songs/$song/$difficulty.json'),
+            getPath('data/$song/$difficulty.json'),
+            getPath('data/$song/$song-$difficulty.json')
         ];
+        if(difficulty.toLowerCase() == "normal")
+            pathsToCheck.push(getPath('songs/$song/$song.json'));
+
         for(path in pathsToCheck) {
             if(Paths.exists(path)) {
                 gottenPath = path;
